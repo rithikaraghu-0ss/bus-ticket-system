@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OTP Test</title>
+</head>
+<body>
+  <h2>OTP Verification</h2>
+
+  <button onclick="sendOTP()">Send OTP</button>
+
+  <pre id="result"></pre>
+
+  <script>
+  function sendOTP() {
+    fetch("http://localhost:5000/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        scan: "QR_SCANNED"
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("result").innerHTML = `
+        <h3>${data.message}</h3>
+        <p><b>OTP:</b> ${data.otp}</p>
+        <hr>
+        <h4>🎫 Ticket Details</h4>
+        <p><b>Bus No:</b> ${data.ticket.busNo}</p>
+        <p><b>Time:</b> ${data.ticket.time}</p>
+        <p><b>Fare:</b> ${data.ticket.fare}</p>
+      `;
+    })
+    .catch(err => {
+      document.getElementById("result").innerText = "Error: " + err;
+    });
+  }
+  </script>
+</body>
+</html>
