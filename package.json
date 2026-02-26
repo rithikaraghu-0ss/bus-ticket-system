@@ -1,0 +1,8 @@
+{
+    "name": "bus-ticket-system",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "cd bmtc-backend && node server.js",
+        "install-all": "cd bmtc-backend && npm install && cd ../bmtc-frontend && npm install"
+    }
+}
